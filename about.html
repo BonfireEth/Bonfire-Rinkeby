@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Bonfire</title>
+        <link rel="stylesheet" href="./css/style.css">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" href="./img/favicon.png" type="image/png">
+        <meta name="description" content="This is the Rinkeby site for Bonife">
+        <meta name="keywords" content="cool">
+        <meta name="author" content="Chair Hodlers">
+    </head>
+    <body>
+        <header id="stickyHeader">
+            <div class="container">
+                <div id="branding">
+                    <h1 onclick="window.location.href='index.html'"><span class="highlight">Bonfire</span></h1>
+                </div>
+                <img src="./img/rink_logo.png" onclick="window.location.href='index.html'">
+                <div id="level">
+                        <h1 onclick="window.location.href='index.html'" ><span class="highlight">Rinkeby</span></h1>
+                </div>
+                <div id="headerspacer"></div>
+                <nav>
+                    <ul>
+                        <li class="current"></li>
+                        <li class="home"><a href="index.html">Home</a></li>
+                        <li class="about"><a href="about.html">Information</a></li>
+                        <li><button type="submit" class="button_buy_1">Buy Seat</button></li>
+                        <li><button type="submit" class="button_withdraw">Withdraw</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div></div>
+        <section id="showcase">
+            <div class="container">
+                <h1>Take a Seat at the Fire</h1>
+                <p>Pledging to the Bonfire contract helps make ETH more rare, with an opportunity for a healthy award</p>
+                <p id="seat_at_fire">Number of seats left:</p>
+                <button type="submit" class="button_buy_2">Buy Ticket</button>
+            </div>
+        </section>
+        <section class="for_space" style="height:66px"></section>
+        <section id="about_explanation">
+            <div class="container">
+
+                <div class="explanation_header"><p>Information</p></div>
+                <p>The Bonfire contract is an agreement to burn ETH between users<br> 
+                    to make ETH more rare. A portion of the ETH gathered is given <br>
+                    out as awards to participants. Early on, the chairs wished<br> 
+                    to donate an amount of the gathered ETH to a cause, but quickly<br> 
+                    saw no one could agree on which cause to donate to. We feel that<br>  
+                    burning the excess ETH is the best course of action. Burning ETH <br>
+                    benefits all holders of ETH. </p>    
+                    <p>More technical information here: <a href="https://github.com/BonfireEth/Bonfire-Rinkeby" style="color:#006AC8">Bonfire Rinkeby</a>.</p>           
+                <div class="accent_bar"></div>
+                <h3>Awards</h3>
+                <p>Number of awards: 5</p>
+                <p>One awardee chosen recieves 30% of the ETH collected.</p>
+                <p>The remaining 4 awardees split 10% of the ETH collected.</p>
+                <div class="accent_bar"></div>
+                <h3>Odds</h3>
+                <p>The odds of being chosen as an awardee are about 1 in 3000.</p>
+                <p>Buying more than one seat at the fire will increase your odds.</p>
+                <p>Please buy seats responsibly.</p>
+                <div class="accent_bar"></div>
+                <h3>Withdrawals</h3>
+                <p>Withdrawals cost the amount of gas for the transaction reguarless of the amount withdrawn.</p>
+                <p>Check to see if you have an award awaiting you with the button below. (requires a connection with MetaMask)</p>
+                <div id="check_awards_button">
+                    <input type="text" id="check_address" style="width:300px" >
+                    <button type="submit" class="check_awards">Check for Award</button>
+                    <p id="awards_awaiting">Do you have awards waiting?</p></div>
+                <div class="accent_bar"></div>
+                <h3>Self Destruct</h3>
+                <p>If called, the self destruct function burns all ETH held in the contract.</p>
+                <div class="accent_bar"></div>
+                
+            </div>
+        </section>
+        <footer>
+            <p>Bonfire, 2018</p>
+            <p>Contract Address: 0x7f587a142390b5f2aad6b04a7e61ccd46e215794</p>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+        <script>
+            var maxnum = 15000;
+            var pledgePrice;
+
+            window.onscroll = function() {stickyFunction()};
+
+            var header = document.getElementById("stickyHeader");
+            var sticky = header.offsetTop;
+
+            function stickyFunction() {
+                if (window.pageYOffset >= sticky) {
+                    header.classList.add("sticky");
+                } else {
+                    header.classList.remove("sticky");
+                }
+            }
+
+//************************ By MetaMask ***********************   //         
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                window.web3 = new Web3(ethereum);
+                try {
+                    // Request account access if needed
+                    await ethereum.enable();
+                } catch (error) {
+                    // User denied account access...
+                }
+            }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                window.web3 = new Web3(web3.currentProvider);
+                // Acccounts always exposed
+            }
+            // Non-dapp browsers...
+            else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+        });
+//**********************************************************   // 
+
+            var Bonfire = web3.eth.contract([{"constant":true,"inputs":[],"name":"precommitHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"banner","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ticketCounter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"awardeeMapping","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"message","type":"string"}],"name":"editBanner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"saltNum","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"txt","type":"string"}],"name":"BannerUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"txt","type":"string"},{"indexed":false,"name":"secretHash","type":"bytes32"}],"name":"SecretHashSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"value","type":"uint256"}],"name":"PriceUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"seatsLeft","type":"uint256"}],"name":"PledgeMade","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"secretHash","type":"bytes32"},{"indexed":false,"name":"textOne","type":"string"},{"indexed":false,"name":"secretNum","type":"uint256"},{"indexed":false,"name":"textTwo","type":"string"}],"name":"SecretHashRevealed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"awardee","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"AwardeeSelected","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"burned","type":"uint256"}],"name":"BonfireCoinBurn","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"withdrawTo","type":"address"},{"indexed":false,"name":"withdrawAmount","type":"uint256"}],"name":"Withdrawal","type":"event"}]);
+
+            var bFire = Bonfire.at('0x7f587a142390b5f2aad6b04a7e61ccd46e215794'); 
+            console.log(bFire);
+
+            $(".button_buy_1, .button_buy_2").click(function() {
+                web3.eth.sendTransaction({from:web3.eth.defaultAccount, to:bFire.address, value:web3.toWei(pledgePrice / 1000000000000000000, "ether"), gas:200000}, (err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+
+            });
+
+            /*******************Withdraw**********************/
+            $(".button_withdraw").click(function() {
+                bFire.withdraw({from:web3.eth.defaultAccount, gas:200000}, (err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            /*******************Check Awards**********************/
+            $(".check_awards").click(function() {
+                var address_box_value = document.getElementById("check_address");
+                var address_to_check;
+                
+                if (address_box_value == null || address_box_value.value == "") {
+                    address_to_check = web3.eth.defaultAccount;
+                    console.log(address_to_check);
+                } else {
+                    address_to_check = document.getElementById("check_address").value;
+                    console.log(address_to_check);
+                }
+
+                bFire.awardeeMapping.call(address_to_check, function (err, result) { 
+                    if (!err) {
+                        $("#awards_awaiting").html(address_to_check + " <br>has " + (result / 1000000000000000000) + " ETH waiting to be withdrawn.");
+                        console.log(result);
+                    }
+                });
+
+            });
+
+            /*******************Current Pledge Price**********************/
+            bFire.price.call(function (err, result) { 
+                if (!err) {
+                    pledgePrice = result;
+                    console.log(pledgePrice);
+                    $(".current").html("Current Pledge Price: " + (result / 1000000000000000000) + "ETH");
+                    console.log(result);
+                }
+            });
+
+            var currentPrice = bFire.PriceUpdated();
+            currentPrice.watch(function(error, result) {
+                if (!error) {
+                    $(".current").html("Current Pledge Price: " + (result.args.value / 1000000000000000000) + "ETH");
+                    console.log(result.args.counter);
+                } else {
+                    console.log(error);
+                }
+            });
+
+            /*******************Number of seats left at the fire**********************/
+            bFire.ticketCounter.call(function (err, result) { 
+                if (!err) {
+                    $("#seat_at_fire").html("Number of seats left:  " + (maxnum - result) + " of " + maxnum);
+                    console.log(result);
+                }
+            });
+
+            var seatsLeft = bFire.PledgeMade();
+            seatsLeft.watch(function(error, result) {
+                if (!error) {
+                    $("#seat_at_fire").html("Number of seats left:  " + (maxnum - result.args.seatsLeft) + " of " + maxnum);
+                    console.log(result.args.seatsLeft);
+                } else {
+                    console.log(error);
+                }
+            });
+        </script>
+    </body>
+</html>
